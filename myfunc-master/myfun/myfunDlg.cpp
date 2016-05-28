@@ -31,6 +31,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 //	afx_msg void OnOpenvideo();
+	virtual void OnOK();
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(CAboutDlg::IDD)
@@ -107,6 +108,7 @@ ON_BN_CLICKED(IDC_RADIO3, &CmyfunDlg::OnBnClickedRadio3)
 ON_BN_CLICKED(IDC_COLOR, &CmyfunDlg::OnBnClickedColor)
 //ON_EN_CHANGE(IDC_EDIT2, &CmyfunDlg::OnEnChangeEdit2)
 ON_BN_CLICKED(IDC_BUTTON1, &CmyfunDlg::OnBnClickedButton1)
+ON_STN_CLICKED(IDC_POS, &CmyfunDlg::OnStnClickedPos)
 END_MESSAGE_MAP()
 
 
@@ -683,7 +685,7 @@ void CmyfunDlg::OnBnClickedSetpos()
 		m_framePos=n;
 	else
 	{
-		MessageBox(_T("输入不合法！"));
+		MessageBox(_T("帧数输入不合法！"));
 		return;
 	}
 	cvSetCaptureProperty(m_capture,CV_CAP_PROP_POS_FRAMES,m_framePos-1);
@@ -1054,14 +1056,15 @@ void CmyfunDlg::OnMouseMove(UINT nFlags, CPoint point)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 	if(!m_img) return;
+	RECT rc;
+	POINT pt;
+	GetCursorPos(&pt);
+	//ClientToScreen(&point);
+	::GetWindowRect(::GetDlgItem(this->m_hWnd, IDC_PICTURE), &rc);
+	CRect picRect;
 	if(m_startMatting&&m_ratedMatting)
 	{
-		RECT rc;
-		POINT pt;
-		GetCursorPos(&pt);
-		//ClientToScreen(&point);
-		::GetWindowRect(::GetDlgItem(this->m_hWnd,IDC_PICTURE),&rc);
-		CRect picRect;
+		
 		GetDlgItem(IDC_PICTURE)->GetClientRect(&picRect);
 
 		if(PtInRect(&rc,pt))
@@ -1087,12 +1090,13 @@ void CmyfunDlg::OnMouseMove(UINT nFlags, CPoint point)
 	}
 	if(m_fixedMatting)
 	{
-		UpdateData(FALSE);
-		RECT rc;
-		POINT pt;
-		GetCursorPos(&pt);
+		if(PtInRect(&rc, pt))
+			UpdateData(FALSE);
+//		RECT rc;
+//		POINT pt;
+//		GetCursorPos(&pt);
 		//ClientToScreen(&point);
-		::GetWindowRect(::GetDlgItem(this->m_hWnd,IDC_PICTURE),&rc);
+//		::GetWindowRect(::GetDlgItem(this->m_hWnd,IDC_PICTURE),&rc);
 		CRect picRect;
 		GetDlgItem(IDC_PICTURE)->GetClientRect(&picRect);
 		CPoint pt1=CPoint(pt.x-m_regionWidth/2,pt.y-m_regionHeight/2);
@@ -1316,4 +1320,27 @@ void CmyfunDlg::OnBnClickedButton1()
 	MessageBox(_T("finish!"));
 
 	// TODO: 在此添加控件通知处理程序代码
+}
+
+
+void CmyfunDlg::OnStnClickedPos()
+{
+	// TODO:  在此添加控件通知处理程序代码
+}
+
+
+void CAboutDlg::OnOK()
+{
+	// TODO:  在此添加专用代码和/或调用基类
+
+	CDialogEx::OnOK();
+}
+
+
+void CmyfunDlg::OnOK()
+{
+	// TODO:  在此添加专用代码和/或调用基类
+	UpdateData(TRUE);
+	OnBnClickedSetpos();
+	//CDialogEx::OnOK();
 }

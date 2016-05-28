@@ -91,4 +91,6 @@ public:
 	int m_regionWidth;
 	afx_msg void OnBnClickedButton1();
 	bool m_resized;
+	afx_msg void OnStnClickedPos();
+	virtual void OnOK();
 };
