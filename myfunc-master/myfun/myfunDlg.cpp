@@ -30,8 +30,7 @@ public:
 protected:
 	DECLARE_MESSAGE_MAP()
 public:
-//	afx_msg void OnOpenvideo();
-	virtual void OnOK();
+
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(CAboutDlg::IDD)
@@ -89,26 +88,22 @@ ON_BN_CLICKED(IDC_PAUSE, &CmyfunDlg::OnBnClickedPause)
 ON_BN_CLICKED(IDC_NEXT, &CmyfunDlg::OnBnClickedNext)
 ON_BN_CLICKED(IDC_SETPOS, &CmyfunDlg::OnBnClickedSetpos)
 ON_BN_CLICKED(IDC_PRE, &CmyfunDlg::OnBnClickedPre)
-ON_COMMAND(ID_MATTING, &CmyfunDlg::OnMatting)
+
 ON_COMMAND(ID_BATCHPIC, &CmyfunDlg::OnBatchpic)
 ON_BN_CLICKED(IDC_NEXTPIC, &CmyfunDlg::OnBnClickedNextpic)
 ON_BN_CLICKED(IDC_PREPIC, &CmyfunDlg::OnBnClickedPrepic)
-//ON_EN_CHANGE(IDC_EDIT1, &CmyfunDlg::OnEnChangeEdit1)
-//ON_BN_CLICKED(IDC_FIXED, &CmyfunDlg::OnBnClickedFixed)
-//ON_BN_CLICKED(IDC_RATED, &CmyfunDlg::OnBnClickedRated)
-ON_STN_CLICKED(IDC_PICTURE, &CmyfunDlg::OnStnClickedPicture)
+
 ON_WM_LBUTTONDOWN()
 ON_WM_LBUTTONUP()
 ON_BN_CLICKED(IDC_BUTTON5, &CmyfunDlg::OnBnClickedButton5)
 ON_WM_MOUSEMOVE()
-//ON_BN_CLICKED(IDC_RADIO1, &CmyfunDlg::OnBnClickedRadio1)
+
 ON_BN_CLICKED(IDC_RADIO1, &CmyfunDlg::OnBnClickedRadio1)
 ON_BN_CLICKED(IDC_RADIO2, &CmyfunDlg::OnBnClickedRadio2)
 ON_BN_CLICKED(IDC_RADIO3, &CmyfunDlg::OnBnClickedRadio3)
 ON_BN_CLICKED(IDC_COLOR, &CmyfunDlg::OnBnClickedColor)
-//ON_EN_CHANGE(IDC_EDIT2, &CmyfunDlg::OnEnChangeEdit2)
+
 ON_BN_CLICKED(IDC_BUTTON1, &CmyfunDlg::OnBnClickedButton1)
-ON_STN_CLICKED(IDC_POS, &CmyfunDlg::OnStnClickedPos)
 END_MESSAGE_MAP()
 
 
@@ -152,7 +147,7 @@ BOOL CmyfunDlg::OnInitDialog()
 	m_framePos=0;
 	CEdit *edit=(CEdit*)GetDlgItem(IDC_EDIT1);
 	CString text,latext;
-	text.Format(_T("%d"),m_framePos);
+	text.Format(_T("%d"),1);
 	edit->SetWindowTextW(text);
 	CStatic *label=(CStatic*)GetDlgItem(IDC_POS);
 	latext.Format(_T("当前为：%d/%d帧"),m_framePos,0);
@@ -220,8 +215,6 @@ void CmyfunDlg::OnPaint()
 	
 	if(m_temp)
 	{
-		//cvReleaseImage(&m_img);
-		//m_img=temp;
 		DrawPicToHDC(m_temp,IDC_PICTURE);
 		cvReleaseImage(&m_temp);
 	}
@@ -279,39 +272,10 @@ void CmyfunDlg::On32771()
 {
 	// TODO: 在此添加命令处理程序代码
 	if(!m_singleFileName.empty()) m_singleFileName.clear();
-	/*if(m_capture)
-	{
-		cvReleaseCapture(&m_capture);
-		m_capture=NULL;
-		m_img=NULL;
-		m_framePos=0;
-	}
-	if(m_img)
-	{
-		cvReleaseImage(&m_img);
-		m_img=NULL;
-	}*/
+	
 	Refresh();
 	
-	//CString FilePathName;
- // CFileDialog dlg(TRUE,NULL,NULL,OFN_HIDEREADONLY ,_T("(*.jpg)|*.jpg|(*.png)|*.png|All Files(*.*)|*.*||"));///TRUE为OPEN对话框，FALSE为SAVE AS对话框
- // if(dlg.DoModal()==IDOK)
- // FilePathName=dlg.GetPathName();
- // m_singleFileName.push_back(FilePathName);
-	//CMenu* mmenu = GetMenu();
-	//CMenu* submenu = mmenu->GetSubMenu(3); //子菜单指针
-	//submenu->EnableMenuItem(0, MF_BYPOSITION | MF_DISABLED | MF_GRAYED);
-	//submenu->EnableMenuItem(3, MF_BYPOSITION | MF_DISABLED | MF_GRAYED);
-	//if(m_img)
-	//{
-	//	cvReleaseImage(&m_img);
-	//	m_img=NULL;
-	//}
-	//wstring name=FilePathName.GetBuffer(0);
-	//m_img=cvLoadImage(ws2s(name).c_str());
-	//DrawPicToHDC(m_img,IDC_PICTURE);
 
-	//if(!m_fileName.empty()) m_fileName.clear();
 	wchar_t szPath[MAX_PATH];     //存放选择的目录路径 
     CString str;
 
@@ -379,35 +343,13 @@ void CmyfunDlg::On32771()
 }
 
 
-//void CAboutDlg::OnOpenvideo()
-//{
-//	// TODO: 在此添加命令处理程序代码
-//	CString FilePathName;
-//  CFileDialog dlg(TRUE,NULL,NULL,OFN_HIDEREADONLY ,_T("(*.jpg)|*.jpg|(*.png)|*.png|All Files(*.*)|*.*||"));///TRUE为OPEN对话框，FALSE为SAVE AS对话框
-//  if(dlg.DoModal()==IDOK)
-//  FilePathName=dlg.GetPathName();
-//  m_fileName.push_back(FilePathName);
-//}
-
 
 void CmyfunDlg::OnOpenvideo()
 {
 	// TODO: 在此添加命令处理程序代码
 	if(!m_singleFileName.empty()) m_singleFileName.clear();
 	CString FilePathName;
-	//if(m_capture)
-	//{
-	//	cvReleaseCapture(&m_capture);
-	//	m_capture=NULL;
-	//	m_img=NULL;
-	//	m_framePos=0;
-	//}
-	//if(m_img)
-	//{
-	//	cvReleaseImage(&m_img);
-	//	m_img=NULL;
-	//	m_picpos=0;
-	//}
+
 	Refresh();
 	
   CFileDialog dlg(TRUE,NULL,NULL,OFN_HIDEREADONLY ,_T("(*.avi)|*.avi|(*.mp4)|*.mp4|All Files(*.*)|*.*||"));///TRUE为OPEN对话框，FALSE为SAVE AS对话框
@@ -433,9 +375,7 @@ void CmyfunDlg::OnOpenvideo()
 	(CButton *)GetDlgItem(IDC_NEXTPIC)->EnableWindow(FALSE);
 	(CButton *)GetDlgItem(IDC_PREPIC)->EnableWindow(FALSE);
 	OnPaint();
-	//Invalidate();
-	//int fps=cvGetCaptureProperty(m_capture,CV_CAP_PROP_FPS);
-	//SetTimer(1,1000/fps,NULL);
+
 
 }
 
@@ -444,8 +384,7 @@ void CmyfunDlg::DrawPicToHDC(IplImage * img, UINT ID)
 {
 	if(!img)return ;
 	CDC *pDC = GetDlgItem(ID)->GetDC();
-	//CRect prect;
-	//GetDlgItem(ID)->GetClientRect(&prect);
+
 	if(img->width>653||img->height>425)
 	{
 		double rt1=653.0/img->width;
@@ -516,14 +455,7 @@ void CmyfunDlg::OnTimer(UINT_PTR nIDEvent)
 			
 		}
 		
-		/*m_framePos=cvGetCaptureProperty(m_capture,CV_CAP_PROP_POS_FRAMES);
-		int frames=cvGetCaptureProperty(m_capture,CV_CAP_PROP_FRAME_COUNT);
-		CStatic *label=(CStatic*)GetDlgItem(IDC_POS);
-		CString text;
-		text.Format(_T("当前为:%d/%d帧"),m_framePos,frames);
-		label->SetWindowTextW(text);*/
-		
-		//Invalidate();
+
 		
 	}
 
@@ -534,16 +466,7 @@ void CmyfunDlg::OnTimer(UINT_PTR nIDEvent)
 void CmyfunDlg::OnWritefreame()
 {
 	// TODO: 在此添加命令处理程序代码
-	/*if(m_img)
-	{
-		cvReleaseImage(&m_img);
-		m_img=NULL;
-	}
-	if(m_capture)
-	{
-		cvReleaseCapture(&m_capture);
-		m_capture=NULL;
-	}*/
+
 	if(m_singleFileName.empty())
 	{
 		MessageBox(_T("请选择视频或视频目录!"));
@@ -589,16 +512,7 @@ void CmyfunDlg::OnVideodir()
         str.Format(_T("选择的目录为 %s"),  szPath);
         AfxMessageBox(str);    
 
-		/*if(m_img)
-		{
-			cvReleaseImage(&m_img);
-			m_img=NULL;
-		}
-		if(m_capture)
-		{
-			cvReleaseCapture(&m_capture);
-			m_capture=NULL;
-		}*/
+	
 		if(m_fileName.empty())
 		{
 			MessageBox(_T("请选择视频或视频目录!"));
@@ -660,14 +574,8 @@ void CmyfunDlg::OnBnClickedNext()
 		MessageBox(_T("视频结束！"));
 		return;
 	}
-	//m_framePos=cvGetCaptureProperty(m_capture,CV_CAP_PROP_POS_FRAMES);
-	//int frames=cvGetCaptureProperty(m_capture,CV_CAP_PROP_FRAME_COUNT);
-	//CStatic *label=(CStatic*)GetDlgItem(IDC_POS);
-	//CString text;
-	//text.Format(_T("当前为:%d/%d帧"),m_framePos,frames);
-	//label->SetWindowTextW(text);
+
 	OnPaint();
-	//UpdateWindow();
 	// TODO: 在此添加控件通知处理程序代码
 }
 
@@ -708,8 +616,7 @@ void CmyfunDlg::OnBnClickedPre()
 		MessageBox(_T("请打开视频文件！"));
 		return;
 	}
-	//m_img=cvQueryFrame(m_capture);
-	//Invalidate();
+
 	if(m_framePos<0)
 	{
 		MessageBox(_T("已到视频开头！"));
@@ -726,10 +633,7 @@ void CmyfunDlg::OnBnClickedPre()
 }
 
 
-void CmyfunDlg::OnMatting()
-{
-	// TODO: 在此添加命令处理程序代码
-}
+
 
 
 void CmyfunDlg::OnBatchpic()
@@ -770,23 +674,7 @@ void CmyfunDlg::OnBatchpic()
 			return;
 		}
 
-		/*if(m_capture)
-		{
-			cvReleaseCapture(&m_capture);
-			m_capture=NULL;
-			m_framePos=0;
-		}
-
-		if(m_img)
-		{
-			cvReleaseImage(&m_img);
-			m_img=NULL;
-		}
 		
-		
-		int fileNum=m_fileName.size();
-		m_img=cvLoadImage(ws2s(m_fileName[0].GetBuffer(0)).c_str());
-		OnPaint();*/
 		CImageProc dlg;
 		dlg.DoModal();
 
@@ -868,39 +756,15 @@ void CmyfunDlg::OnBnClickedPrepic()
 }
 
 
-//void CmyfunDlg::OnEnChangeEdit1()
-//{
-//	// TODO:  如果该控件是 RICHEDIT 控件，它将不
-//	// 发送此通知，除非重写 CDialogEx::OnInitDialog()
-//	// 函数并调用 CRichEditCtrl().SetEventMask()，
-//	// 同时将 ENM_CHANGE 标志“或”运算到掩码中。
-//
-//#1015
-//
-//	// TODO:  在此添加控件通知处理程序代码
-//}
 
 
-//void CmyfunDlg::OnBnClickedFixed()
-//{
-//	// TODO: 在此添加控件通知处理程序代码
-//	m_fixedMatting=TRUE;
-//	m_ratedMatting=FALSE;
-//}
 
 
-//void CmyfunDlg::OnBnClickedRated()
-//{
-//	// TODO: 在此添加控件通知处理程序代码
-//	m_fixedMatting=FALSE;
-//	m_ratedMatting=TRUE;
-//}
 
 
-void CmyfunDlg::OnStnClickedPicture()
-{
-	// TODO: 在此添加控件通知处理程序代码
-}
+
+
+
 
 
 void CmyfunDlg::OnLButtonDown(UINT nFlags, CPoint point)
@@ -1074,17 +938,7 @@ void CmyfunDlg::OnMouseMove(UINT nFlags, CPoint point)
 			m_rects.pop_back();
 			m_rects.push_back(rect);
 			OnPaint();
-			//re
-			/*CDC *pDC=GetDlgItem(IDC_PICTURE)->GetDC();
-			HDC hdc=pDC->GetSafeHdc();
-			*/
-			//OnPaint();
-			/*CBrush *brush=CBrush::FromHandle((HBRUSH)GetStockObject(NULL_BRUSH));
-			CBrush *oldBrush=pDC->SelectObject(brush);
-			Rectangle(hdc,rect.left,rect.top,rect.right,rect.bottom);
-			brush=pDC->SelectObject(oldBrush);*/
-			//ReleaseDC(pDC);
-			//OnPaint();
+		
 		}
 		
 	}
@@ -1092,11 +946,6 @@ void CmyfunDlg::OnMouseMove(UINT nFlags, CPoint point)
 	{
 		if(PtInRect(&rc, pt))
 			UpdateData(FALSE);
-//		RECT rc;
-//		POINT pt;
-//		GetCursorPos(&pt);
-		//ClientToScreen(&point);
-//		::GetWindowRect(::GetDlgItem(this->m_hWnd,IDC_PICTURE),&rc);
 		CRect picRect;
 		GetDlgItem(IDC_PICTURE)->GetClientRect(&picRect);
 		CPoint pt1=CPoint(pt.x-m_regionWidth/2,pt.y-m_regionHeight/2);
@@ -1152,10 +1001,7 @@ void CmyfunDlg::Refresh(void)
 }
 
 
-//void CmyfunDlg::OnBnClickedRadio1()
-//{
-//	// TODO: 在此添加控件通知处理程序代码
-//}
+
 
 
 void CmyfunDlg::OnBnClickedRadio1()
@@ -1261,17 +1107,7 @@ void CmyfunDlg::OnBnClickedColor()
 }
 
 
-//void CmyfunDlg::OnEnChangeEdit2()
-//{
-//	// TODO:  如果该控件是 RICHEDIT 控件，它将不
-//	// 发送此通知，除非重写 CDialogEx::OnInitDialog()
-//	// 函数并调用 CRichEditCtrl().SetEventMask()，
-//	// 同时将 ENM_CHANGE 标志“或”运算到掩码中。
-//
-//#1015
-//
-//	// TODO:  在此添加控件通知处理程序代码
-//}
+
 
 
 void CmyfunDlg::OnBnClickedButton1()
@@ -1295,10 +1131,7 @@ void CmyfunDlg::OnBnClickedButton1()
 	name=m_singleFileName[0].Right(m_singleFileName[0].GetLength()-id);
 	savedir=ws2s(dir.GetBuffer(0))+"\\crop";
 	CreateDirectory(s2ws(savedir).c_str(),NULL);
-	//CString
-	//CFileDialog dlg(FALSE,_T("avi"),m_singleFileName[0],OFN_HIDEREADONLY ,_T("(*.avi)|*.avi|(*.mp4)|*.mp4|All Files(*.*)|*.*||"));///TRUE为OPEN对话框，FALSE为SAVE AS对话框
-    //if(dlg.DoModal()==IDOK)
-    //FilePathName=dlg.GetPathName();
+	
 	int fps=cvGetCaptureProperty(m_capture,CV_CAP_PROP_FPS);
 	CvVideoWriter *writer=cvCreateVideoWriter((savedir+"\\"+ws2s(name.GetBuffer(0))).c_str(),0,fps,cvSize(m_rects[0].Width(),m_rects[0].Height()));
 	IplImage *frame,*crop;
@@ -1323,18 +1156,10 @@ void CmyfunDlg::OnBnClickedButton1()
 }
 
 
-void CmyfunDlg::OnStnClickedPos()
-{
-	// TODO:  在此添加控件通知处理程序代码
-}
 
 
-void CAboutDlg::OnOK()
-{
-	// TODO:  在此添加专用代码和/或调用基类
 
-	CDialogEx::OnOK();
-}
+
 
 
 void CmyfunDlg::OnOK()

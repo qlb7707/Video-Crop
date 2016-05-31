@@ -55,20 +55,17 @@ public:
 	afx_msg void OnBnClickedSetpos();
 	int m_framePos;
 	afx_msg void OnBnClickedPre();
-//	CString m_singleFileName;
+
 	vector<CString> m_singleFileName;
-	afx_msg void OnMatting();
+
 	afx_msg void OnBatchpic();
 	int m_picpos;
 	afx_msg void OnBnClickedNextpic();
 	afx_msg void OnBnClickedPrepic();
-//	afx_msg void OnEnChangeEdit1();
-//	afx_msg void OnBnClickedFixed();
+
 	bool m_fixedMatting;
 	bool m_ratedMatting;
-//	afx_msg void OnBnClickedRated();
-	afx_msg void OnStnClickedPicture();
-//	CMyStatic m_pictureBox;
+
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	CPoint m_pt1;
 	CPoint m_pt2;
@@ -78,7 +75,7 @@ public:
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	bool m_startMatting;
 	void Refresh(void);
-//	afx_msg void OnBnClickedRadio1();
+
 	int m_radio;
 	afx_msg void OnBnClickedRadio1();
 	afx_msg void OnBnClickedRadio2();
@@ -86,11 +83,10 @@ public:
 	afx_msg void OnBnClickedColor();
 	COLORREF m_clr;
 	IplImage *m_temp;
-//	afx_msg void OnEnChangeEdit2();
 	int m_regionHeight;
 	int m_regionWidth;
 	afx_msg void OnBnClickedButton1();
 	bool m_resized;
-	afx_msg void OnStnClickedPos();
+	//afx_msg void OnStnClickedPos();
 	virtual void OnOK();
 };
